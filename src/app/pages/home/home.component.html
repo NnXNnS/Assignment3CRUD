@@ -1,0 +1,132 @@
+<div style="margin: 10px;">
+    <button class="btn btn-lg btn-outline-primary" (click)="open(mymodal)">
+        Add new 
+    </button>
+</div>
+
+
+<div>
+    <table class="redTable">
+        <thead>
+            <tr>
+                <th>ID Barang</th>
+                <th>Nama Barang</th>
+                <th>Tipe Barang</th>
+                <th>Kadaluarsa Barang</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor="let item of listItems">
+            <td>{{item.uuid}}</td>
+            <td>{{item.name}}</td>
+            <td>{{item.typeItem}}</td>
+            <td>{{item.expiredDate * 1000| date:'MM/dd/yyyy'}}</td>
+            <td>
+                <div style="float: left;margin-left: 30px;">
+                    <button (click)="openEdit(mymodalEdit,item.id)">Edit</button>
+                </div>
+                <div>
+                    <button (click)="deleteItem(item.id)">Delete</button>
+                </div>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+
+
+<!-- The Modal -->
+<ng-template #mymodal let-modal>
+    <div class="modal-header">
+      <h4 class="modal-title" id="modal-basic-title">Create New Item</h4>
+      <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+        <span aria-hidden="true">×</span>
+      </button>
+    </div>
+    <div class="modal-body">
+        <div class="row" style="margin-left: 10px;">
+            <h5>Nama Barang</h5>
+        </div>
+        <div class="row" style="margin-left: 10px;">
+            <input class="form-control col-sm-11"type="text" [(ngModel)]="item.name">
+        </div>
+        <div class="row" style="margin-left: 10px;">
+            <h5>Jenis Barang</h5>
+        </div>
+        <div class="row" style="margin-left: 10px;">
+            <select class="form-control col-sm-11" [(ngModel)]="item.typeItem">
+                <option *ngFor="let x of typeItems">{{x}}</option>
+            </select>
+        </div>
+        <div class="row" style="margin-left: 10px;">
+            <h5>Tanggal Kadaluarsa</h5>
+        </div>
+        <div class="row" style="margin-left: 10px;">
+            <div class="form-group">
+                <div class="input-group">
+                  <input class="form-control" placeholder="yyyy-mm-dd"
+                         name="dp" ngbDatepicker #d="ngbDatepicker" (click)="d.toggle()" [(ngModel)]="dpick">
+                  <div class="input-group-append">
+                    <button class="btn btn-outline-secondary calendar fa fa-calendar" (click)="d.toggle()" type="button"></button>
+                  </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-outline-dark" (click)="modal.dismiss('Cancel')">Cancel</button>
+      <button type="button" class="btn btn-outline-dark" (click)="modal.dismiss('save click')">Ok</button>
+    </div>
+  </ng-template>
+
+  
+<!-- The Modal -->
+<ng-template #mymodalEdit let-modal>
+    <div class="modal-header">
+      <h4 class="modal-title" id="modal-basic-title">Edit Item</h4>
+      <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+        <span aria-hidden="true">×</span>
+      </button>
+    </div>
+    <div class="modal-body">
+        <div class="row" style="margin-left: 10px;">
+            <h5>ID Barang</h5>
+        </div>
+        <div class="row" style="margin-left: 10px;">
+            <input class="form-control col-sm-11"type="text" [(ngModel)]="item.uuid" disabled>
+        </div>
+        <div class="row" style="margin-left: 10px;">
+            <h5>Nama Barang</h5>
+        </div>
+        <div class="row" style="margin-left: 10px;">
+            <input class="form-control col-sm-11"type="text" [(ngModel)]="item.name">
+        </div>
+        <div class="row" style="margin-left: 10px;">
+            <h5>Jenis Barang</h5>
+        </div>
+        <div class="row" style="margin-left: 10px;">
+            <select class="form-control col-sm-11" [(ngModel)]="item.typeItem">
+                <option *ngFor="let x of typeItems">{{x}}</option>
+            </select>
+        </div>
+        <div class="row" style="margin-left: 10px;">
+            <h5>Tanggal Kadaluarsa</h5>
+        </div>
+        <div class="row" style="margin-left: 10px;">
+            <div class="form-group">
+                <div class="input-group">
+                  <input class="form-control" placeholder="yyyy-mm-dd"
+                         name="dp" ngbDatepicker #d="ngbDatepicker" (click)="d.toggle()" [(ngModel)]="dpick">
+                  <div class="input-group-append">
+                    <button class="btn btn-outline-secondary calendar fa fa-calendar" (click)="d.toggle()" type="button"></button>
+                  </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-outline-dark" (click)="modal.dismiss('Cancel')">Cancel</button>
+      <button type="button" class="btn btn-outline-dark" (click)="modal.dismiss('save click')">Ok</button>
+    </div>
+  </ng-template>
